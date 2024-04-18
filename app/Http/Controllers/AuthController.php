@@ -17,11 +17,28 @@ class AuthController extends Controller
         $validator = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6'
+            'password' => 'required|string|min:6',
+            'location' => 'required|string|',
+            'biography' => 'required|string',
+            'photo' => 'required|file|image',
+
         ]);
+
+        $userphoto = $request->file('photo');
+        $filename = time() . '.' . $userphoto->getClientOriginalExtension(); 
+        $path = $userphoto->storeAs('usersphoto', $filename, 'public');
+
 
 
         $user =new User();
+        $user -> name = $request -> input('name');
+        $user -> password = $request -> input ('password');
+        $user -> location = $request ->input('location');
+        $user -> biography = $request ->input('biography');
+        $user -> email = $request -> input('email');
+        $user -> photo = asset('storage/'. $path);
+       
+
 
         $token = $user->createToken('API Token')->accessToken;
 
