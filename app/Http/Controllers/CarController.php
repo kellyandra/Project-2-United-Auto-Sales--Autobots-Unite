@@ -15,15 +15,15 @@ class CarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-        'description'=>'required|string|max:255',
-        'make'=>'required|string|max:255',
-        'model'=>'required|string|max:255',
-        'colour'=>'required|string|max:255',
-        'year'=>'required|string|max:4',
-        'transmission'=>'required|string|max:100',
-        'car_type'=>'required|string|max:255',
-        'price'=>'required|numeric',
-        'photo'=>'required|image|mimes:jpeg,png,jpg',
+            'description'=>'required|string|max:255',
+            'make'=>'required|string|max:255',
+            'model'=>'required|string|max:255',
+            'colour'=>'required|string|max:255',
+            'year'=>'required|string|max:4',
+            'transmission'=>'required|string|max:100',
+            'car_type'=>'required|string|max:255',
+            'price'=>'required|numeric',
+            'photo'=>'required|image|mimes:jpeg,png,jpg',
    
         ]);
         $fileName = null;
