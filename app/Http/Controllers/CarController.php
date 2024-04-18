@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Car;
+use Auth;use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
 class CarController extends Controller
@@ -113,4 +114,3 @@ class CarController extends Controller
         return response()->json(['message' => 'Car deleted successfully']);
     }
 }
-

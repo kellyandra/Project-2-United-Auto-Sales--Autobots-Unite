@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\FavouritesController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,11 +23,11 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
     Route::get('/cars', [CarController::class, 'index']);
     Route::post('/cars', [CarController::class, 'store']);
     Route::get('/cars/{car_id}', [CarController::class, 'show']);
-    Route::post('/cars/{car_id}/favorite', [FavoritesController::class, 'store']);
+    Route::post('/cars/{car_id}/favorite', [FavouritesController::class, 'store']);
     
     // User routes
     Route::post('/users/{user_id}', [UserController::class, 'show']);
-    Route::post('/users/{user_id}/favorites', [FavoritesController::class, 'userFavorites']);
+    Route::post('/users/{user_id}/favorites', [FavouritesController::class, 'userFavorites']);
     
     // Search routes
     Route::get('/search', [SearchController::class, 'index']);
