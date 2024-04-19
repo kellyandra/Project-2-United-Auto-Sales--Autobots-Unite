@@ -1,4 +1,25 @@
 <script setup>
+    function Login() {
+        let loginForm = document.getElementById('loginForm');
+        let form_data = new FormData(loginForm);
+
+        fetch("/api/v1/login", {
+            method: "POST",
+            body: form_data,
+            headers: {
+                'Accept': 'application/json',
+            }
+        })
+        .then(async response => {
+            return response.json();
+        })
+        .then(function (data) {
+            router.push({path: '/explore'});
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
 </script>
 
 <template>
