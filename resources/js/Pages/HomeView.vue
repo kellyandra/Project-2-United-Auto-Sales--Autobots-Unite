@@ -1,5 +1,5 @@
 <script setup>
-import UWIWordmark from '../../images/UWI-Wordmark.webp';
+import McLaren from '../../images/McLaren.jpg';
 </script>
 
 <template>
@@ -17,7 +17,7 @@ import UWIWordmark from '../../images/UWI-Wordmark.webp';
     </nav>
     
     <header class="text-center">
-      <img class="img-fluid" :src="UWIWordmark" alt="UWI Wordmark" width="300" />
+      <img class="img-fluid" :src="McLaren" alt="McLaren" width="300" />
       <h1 class="display-5 fw-bold">Buy and Sell Cars Online</h1>
       <div class="col-lg-6 mx-auto">
         <p class="lead mb-4">United Auto Sales provides the fastest, easiest and most user-friendly way to buy or sell cars online. Find a Great Price on the Vehicle You Want.</p>
