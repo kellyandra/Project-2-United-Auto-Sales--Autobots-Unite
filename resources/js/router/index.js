@@ -14,10 +14,10 @@ const router = createRouter({
             path: '/register',
             component: RegisterView
         },
-        // {
-        //     path: '/login',
-        //     component: LoginView
-        // },
+        {
+            path: '/login',
+            component: LoginView
+        },
         // {
         //     path: '/logout',
         //     component: LogoutView
