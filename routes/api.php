@@ -15,7 +15,8 @@ Route::get('/user', function (Request $request) {
 Route::post('/v1/auth/register',[AuthController::class, 'register']);
 Route::post('/v1/auth/login', [AuthController::class, 'login']);
 
-Route::middleware(['auth:api'])->prefix('v1')->group(function () {
+//middleware(['auth:api'])->
+Route::prefix('v1')->group(function () {
     // Authentication routes
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 
