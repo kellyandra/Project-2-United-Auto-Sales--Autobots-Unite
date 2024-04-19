@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Car;
 
-class FavoritesController extends Controller
+class FavouritesController extends Controller
 {
     public function addFavorite(Request $request, $user_id, $car_id)
     {
