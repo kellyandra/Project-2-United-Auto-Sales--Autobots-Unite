@@ -3,7 +3,7 @@
 
 <template>
     <h1>Register New User</h1>
-    <form class="row g-3" action="/properties/create" enctype="multipart/form-data" method="post">
+    <form class="row g-3" @submit.prevent="registerUser" id="registerForm" action="" enctype="multipart/form-data" method="post">
 
         <div class="mb-3 col-md-6">
             <label for="name" class="form-label fw-bold">Full Name</label>
