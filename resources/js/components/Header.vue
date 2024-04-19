@@ -20,22 +20,22 @@
               <RouterLink class="nav-link" :class="{ active: $route.path === '/register'}" to="/register">Register</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink class="nav-link" :class="{ active: $route.path === '/about'}" to="/about">Login</RouterLink>
+              <RouterLink class="nav-link" :class="{ active: $route.path === '/login'}" to="/login">Login</RouterLink>
             </li>
   
             <!-- Add car, Explore, and My profile links (visible only when logged in) -->
-            <li v-if="isLoggedIn" class="nav-item">
+            <li class="nav-item">
               <RouterLink class="nav-link" to="/add-car">Add Car</RouterLink>
             </li>
-            <li v-if="isLoggedIn" class="nav-item">
+            <li class="nav-item">
               <RouterLink class="nav-link" to="/explore">Explore</RouterLink>
             </li>
-            <li v-if="isLoggedIn" class="nav-item">
+            <li class="nav-item">
               <RouterLink class="nav-link" to="/profile">My Profile</RouterLink>
             </li>
   
             <!-- Logout button (visible only when logged in) -->
-            <li v-if="isLoggedIn" class="nav-item">
+            <li class="nav-item">
               <button class="btn btn-outline-light" @click="logout">Logout</button>
             </li>
           </ul>
@@ -45,11 +45,11 @@
   </template>
   
   <script setup>
-  const isLoggedIn = false; // Set this to true when user is logged in
+//   const isLoggedIn = false; // Set this to true when user is logged in
   
-  function logout() {
-    // Logic to logout the user
-  }
+//   function logout() {
+//     // Logic to logout the user
+//   }
   </script>
   
   <style scoped>
