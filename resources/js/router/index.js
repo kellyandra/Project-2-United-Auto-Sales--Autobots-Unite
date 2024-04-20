@@ -7,7 +7,6 @@ import LogoutView from "../Pages/LogoutView.vue";
 import ExploreView from "../Pages/ExploreView.vue";
 import UserView from "../Pages/UserView.vue";
 import NewCarView from "../Pages/NewCarView.vue";
-import UserView from "../Pages/UserView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
