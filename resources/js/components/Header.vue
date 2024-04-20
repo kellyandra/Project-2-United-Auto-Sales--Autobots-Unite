@@ -25,7 +25,7 @@
   
             <!-- Add car, Explore, and My profile links (visible only when logged in) -->
             <li class="nav-item">
-              <RouterLink class="nav-link" to="/add-car">Add Car</RouterLink>
+              <RouterLink class="nav-link" to="/cars/new">Add Car</RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink class="nav-link" to="/explore">Explore</RouterLink>
