@@ -57,13 +57,13 @@ class CarController extends Controller
     }
 
     // Show a specific car
-    public function show($id)
+    public function show($car_id)
     {
-        $car = Car::find($id);
+        $car = Car::find($car_id);
         if (!$car) {
             return response()->json(['error' => 'Car not found'], 404);
         }
-        return response()->json($car);
+        return response()->json(['car' =>$car]);
     }
 
     // Update a car
