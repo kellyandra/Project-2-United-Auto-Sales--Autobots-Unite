@@ -13,7 +13,7 @@ class CarController extends Controller
     public function index()
     {
         $cars = Car::all();
-        return response()->json($cars);
+        return response()->json(['cars' => $cars]);
     }
 
     // Store a new car
