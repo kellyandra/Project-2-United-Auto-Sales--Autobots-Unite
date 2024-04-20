@@ -1,14 +1,24 @@
-<script></script>
+<script>
+export default {
+  props: {
+    user: {
+      type: Object,
+      required: true
+    }
+  }
+};
+</script>
 
 <template>
-  <div class="user-profile">
+  <p>NOT BUCKLING</p>
+  <!-- <div class="user-profile">
     <div class="profile-picture">
       <img :src="user.profilePictureUrl" alt="Profile Picture">
     </div>
     <div class="profile-details">
       <h1>{{ user.fullName }}</h1>
       <h2>@{{ user.username }}</h2>
-      //<p>{{ user.bio }}</p>
+      <p>{{ user.bio }}</p>
       <p>Email: {{ user.email }}</p>
       <p>Location: {{ user.location }}</p>
       <p>Date Joined: {{ user.dateJoined }}</p>
@@ -21,19 +31,8 @@
         </ul>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
-
-<script>
-export default {
-  props: {
-    user: {
-      type: Object,
-      required: true
-    }
-  }
-};
-</script>
 
 <style scoped>
 .user-profile {

@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from "../Pages/HomeView.vue";
+import AboutView from "../Pages/AboutView.vue";
 import RegisterView from "../Pages/RegisterView.vue";
 import LoginView from "../Pages/LoginView.vue";
 import CarView from "../Pages/CarView.vue";
 import LogoutView from "../Pages/LogoutView.vue";
 import ExploreView from "../Pages/ExploreView.vue";
-import UserView from "../Pages/UserView.vue";
 import NewCarView from "../Pages/NewCarView.vue";
+import UserView from "../Pages/UserView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,10 @@ const router = createRouter({
         {
             path: '/',
             component: HomeView
+        },
+        {
+            path: '/about',
+            component: AboutView
         },
         {
             path: '/register',
@@ -32,7 +37,7 @@ const router = createRouter({
             component: ExploreView
         },
         {
-            path: '/users/{user_id}',
+            path: '/users/{$user_id}',
             component: UserView
         },
         {
