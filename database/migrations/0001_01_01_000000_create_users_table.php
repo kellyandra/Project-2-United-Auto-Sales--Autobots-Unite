@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('name');
             $table->string('location');
-            $table->string('biography');
+            $table->text('biography');
             $table->string('photo');
             $table->rememberToken();
             $table->timestamps();
