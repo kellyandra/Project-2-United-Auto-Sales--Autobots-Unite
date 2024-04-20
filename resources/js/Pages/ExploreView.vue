@@ -62,7 +62,7 @@
                 </div>
               </div>
               <div class="card-footer">
-                <a href="#" class="btn btn-primary">View more details</a>
+                <router-link :to="{ name: 'CarView', params: { car_id: car.id }}" class="btn btn-primary">View more Details</router-link>
               </div>
             </div>
           </div>  
