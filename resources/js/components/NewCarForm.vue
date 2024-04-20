@@ -54,21 +54,25 @@
                 <option value="Manual">Manual</option>
                 <option value="CVT">CVT</option>
                 <option value="EV">EV</option>
-            
-            
             </select>
         </div>
 
+        <div >
+            <label for="description" class="form-label fw-bold">Description</label>
+            <textarea type="text" name="description" id="description" rows="5" class="form-control">  </textarea>
+        </div>
+
         <div class="col-md-12 mb-3">
-            <label for="photo" class="form-label fw-bold d-block">Upload Photo</label>
-            <label for="photo" class="btn btn-outline-secondary">
+            <label for="photo" class="form-label fw-bold d-block " >Upload Photo</label>
+            <label for="photo" class="btn btn-outline-secondary" style="width: 100px;">
                 Browse
                 <input class="form-control d-none" type="file" name="photo" id="photo">
             </label>
+            <span id="file-chosen" class="ms-4">No File Selected</span>
         </div>
 
         <div class="mb-3">
-            <button type="submit" class="btn btn-success">Save</button>
+            <button type="submit" class="btn btn-success" style="width: 150px; background-color:#15ad87;">Save</button>
         </div>
     </form>
 </template>
