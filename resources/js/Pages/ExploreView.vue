@@ -1,12 +1,14 @@
 <template>
   <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
 </head>
     <div class="explore-view">
       <!-- Title -->
       <h1 class="title">Explore</h1>
-  
+      <div class="car-price">
+            <i class="fas fa-tag"></i> $10000
+      </div>
+
       <!-- Search Bar -->
       <div class="search-bar">
         <div class="search-input">
