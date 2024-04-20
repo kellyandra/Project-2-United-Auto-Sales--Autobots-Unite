@@ -45,8 +45,10 @@ const router = createRouter({
             component: NewCarView
         },
         {
-            path: '/cars/{car_id}',
-            component: CarView
+            path: '/cars/:car_id',
+            name: 'CarView',
+            component: CarView,
+            props: true
         },
         {
             path: '/logout',
