@@ -32,11 +32,35 @@
 
         <div class="col-md-6 mb-3">
             <label for="cartype" class="form-label fw-bold">Car Type</label>
-            <input type="text" name="cartype" id="cartype" class="form-control">
+            <select  name="cartype" id="cartype" class="form-select">
+                <option value="Suv">SUV</option>
+                <option value="Pickup Truck">Pickup Truck</option>  
+                <option value="Station Wagon">Station Wagon</option>  
+                <option value="Hatchback">Hatchback</option>  
+                <option value="Sedan">Sedan</option>  
+                <option value="Coupe">Coupe</option>  
+                <option value="Sports Car">Sports Car</option>  
+                <option value="Convertible">Convertible</option>  
+                <option value="Minivan">Minivan</option>  
+                <option value="Van">Van</option>  
+                <option value="Crossover">Crossover</option>  
+            </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label for="transmission" class="form-label fw-bold">Transmission</label>
+            <select type="text" name="transmission" id="transmission" class="form-select">
+                <option value="Automatic">Automatic</option>
+                <option value="Manual">Manual</option>
+                <option value="CVT">CVT</option>
+                <option value="EV">EV</option>
+            
+            
+            </select>
         </div>
 
         <div class="col-md-12 mb-3">
-            <label for="photo" class="form-label fw-bold d-block">Photo</label>
+            <label for="photo" class="form-label fw-bold d-block">Upload Photo</label>
             <label for="photo" class="btn btn-outline-secondary">
                 Browse
                 <input class="form-control d-none" type="file" name="photo" id="photo">
@@ -44,7 +68,7 @@
         </div>
 
         <div class="mb-3">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-success">Save</button>
         </div>
     </form>
 </template>
