@@ -26,8 +26,10 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            'location' => $this->faker->city(),
+            'biography' => $this->faker->paragraph(),
+            'photo' => $this->faker->imageUrl(640, 480, 'people', true), // Generates a random user photo
             'remember_token' => Str::random(10),
         ];
     }
