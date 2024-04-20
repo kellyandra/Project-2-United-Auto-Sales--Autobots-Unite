@@ -1,3 +1,29 @@
+<script setup>
+  import { ref, onMounted } from "vue";
+  let cars = ref([]);
+
+  function fetchMovies() {
+    fetch("/api/v1/cars", {
+            method: 'GET',
+            headers: {
+                // 'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            // display a success message
+            console.log(data);
+            cars.value = data.cars;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+  }
+
+  onMounted(() => fetchMovies())
+</script>
+
 <template>
   <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -5,9 +31,9 @@
     <div class="explore-view">
       <!-- Title -->
       <h1 class="title">Explore</h1>
-      <div class="car-price">
-            <i class="fas fa-tag"></i> $10000
-      </div>
+
+
+      
 
       <!-- Search Bar -->
       <div class="search-bar">
@@ -22,55 +48,28 @@
         <button class="search-button">Search</button>
       </div>
   
-      <!-- Car Listings -->
-      <div class="car-listings">
-        <!-- Car 1 -->
-        <div class="car">
-          <img src="car1.jpg" alt="Car 1">
-          <div class="car-details">
-            <div class="car-name">Car Name</div>
-            <div class="car-brand">Car Brand</div>
-            <div class="car-price">
-              <i class="fas fa-tag"></i> $10000
+      <div class="container mt-5">
+        <div class="row" id="cars-container">
+          <div v-for="car in cars" :key="car.id" class="col-md-6">
+            <div class="card">
+              <img :src="car.photo" class="card-img-top" alt="Car Image">
+              <div class="card-body">
+                <h5 class="card-title">{{ car.year}} {{ car.make }}</h5>
+                <div class="car-price">
+                  <i class="fas fa-tag"></i> $10000
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="#" class="btn btn-primary">View more details</a>
+              </div>
             </div>
-          </div>
-          <button class="view-details-button">View Details</button>
-        </div>
-  
-        <!-- Car 2 -->
-        <div class="car">
-          <img src="car2.jpg" alt="Car 2">
-          <div class="car-details">
-            <div class="car-name">Car Name</div>
-            <div class="car-brand">Car Brand</div>
-            <div class="car-price">
-              <i class="fas fa-tag"></i> $15000
-            </div>
-          </div>
-          <button class="view-details-button">View Details</button>
-        </div>
-  
-        <!-- Car 3 -->
-        <div class="car">
-          <img src="car3.jpg" alt="Car 3">
-          <div class="car-details">
-            <div class="car-name">Car Name</div>
-            <div class="car-brand">Car Brand</div>
-            <div class="car-price">
-              <i class="fas fa-tag"></i> $20000
-            </div>
-          </div>
-          <button class="view-details-button">View Details</button>
+          </div>  
         </div>
       </div>
-    </div>
+    </div> 
+
+
   </template>
-  
-  <script>
-  export default {
-    name: 'ExploreView'
-  }
-  </script>
   
   <style scoped>
   /* Title Style */
