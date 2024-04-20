@@ -26,16 +26,14 @@
         </div>
 
         <div class="col-md-6 mb-3">
-            <label for="year" class="form-label fw-bold">Year</label>
-            <input type="text" name="year" id="year" class="form-control">
-        </div>
-
-        <div class="col-md-6 mb-3">
             <label for="price" class="form-label fw-bold">Price</label>
             <input type="text" name="price" id="price" class="form-control">
         </div>
 
-
+        <div class="col-md-6 mb-3">
+            <label for="cartype" class="form-label fw-bold">Car Type</label>
+            <input type="text" name="cartype" id="cartype" class="form-control">
+        </div>
 
         <div class="col-md-12 mb-3">
             <label for="photo" class="form-label fw-bold d-block">Photo</label>
