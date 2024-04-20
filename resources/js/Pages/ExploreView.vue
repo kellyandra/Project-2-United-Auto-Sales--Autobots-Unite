@@ -51,12 +51,14 @@
       <div class="container mt-5">
         <div class="row" id="cars-container">
           <div v-for="car in cars" :key="car.id" class="col-md-6">
+            <div class="col-md-4 mb-4">  
             <div class="card">
               <img :src="car.photo" class="card-img-top" alt="Car Image">
               <div class="card-body">
                 <h5 class="card-title">{{ car.year}} {{ car.make }}</h5>
-                <div class="car-price">
-                  <i class="fas fa-tag"></i> $10000
+                <p class="card-text card-price">
+                  <i class="fas fa-tag"></i> {{ car.price }} </p>
+                <h5>{{ car.model }}</h5>
                 </div>
               </div>
               <div class="card-footer">
