@@ -23,5 +23,5 @@ import McLaren from '../../images/McLaren.jpg';
 </template>
 
 <style scoped>
-/* Custom styles, if needed */
+
 </style>
