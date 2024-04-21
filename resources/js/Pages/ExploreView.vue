@@ -72,7 +72,7 @@
               <div class="card-body">
                 <div class="row">
                   <h5 class="card-title col-6">{{ car.year}} {{ car.make }}</h5>
-                  <p class="card-text text-center rounded-3 text-white col-6 card-price green-400">
+                  <p class="card-text text-center rounded-3 w-50 text-white col-6 price-bg">
                   <i class="fas fa-tag"></i> {{ car.price }} </p>
                 </div>
                 
@@ -111,6 +111,9 @@
     background-color: #02bd88;
   }
   
+  .price-bg {
+    background-color: #02bd88;
+  }
   /* Car Listings Styles */
   .car-listings {
     display: flex;
