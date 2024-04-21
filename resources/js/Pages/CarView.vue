@@ -58,18 +58,18 @@ onMounted(() => fetchCarDetails());
       <div class="card-body grid gap-0">
         <div class="row">
           <div class="col-6">
-              <span class="text-body-secondary">Color</span>{{ car.colour }}
+              <span class="me-4 text-body-secondary">Color</span>{{ car.colour }}
           </div>
 
           <div class="col-6">
-              <span class="text-body-secondary">Body type</span>  {{ car.car_type }}
+              <span class="me-4 text-body-secondary">Body type</span>  {{ car.car_type }}
           </div>
           <div class="col-6">
-              <span class="text-body-secondary">Price</span>   ${{ car.price }}
+              <span class="me-4 text-body-secondary">Price</span>   ${{ car.price }}
           </div>
   
           <div class="col-6">
-              <span class="text-body-secondary">Transmission</span>    {{ car.transmission }}</div>
+              <span class="me-4 text-body-secondary">Transmission</span>    {{ car.transmission }}</div>
           </div>
         </div>
         
