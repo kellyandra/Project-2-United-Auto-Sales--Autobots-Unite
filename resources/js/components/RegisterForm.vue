@@ -39,10 +39,14 @@
         </div>
 
         <div class="mb-3">
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn reg-btn">Register</button>
         </div>
     </form>
 </template>
 
 <style>
+    .reg-btn {
+        background-color: #02bd88;
+        color: white;
+    }
 </style>

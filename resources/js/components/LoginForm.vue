@@ -37,7 +37,7 @@
                     <input type="password" class="form-control" name="password" placeholder="Password" id="password" required>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn login-btn">Login</button>
                 </div>
             </form>
         </div>
@@ -46,4 +46,8 @@
 </template>
 
 <style scoped>
+    .login-btn {
+        background-color: #02bd88;
+        color: white;
+    }
 </style>

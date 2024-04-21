@@ -59,7 +59,7 @@
           </div>
           <div class="mb-3 col-4">
             <br>
-            <button class="search-button btn btn-success" @click="searchCars">Search</button>
+            <button class="search-button btn text-white" @click="searchCars">Search</button>
           </div>
         </div>
       </div>
@@ -70,10 +70,14 @@
             <div class="card">
               <img :src="car.photo" class="card-img-top" alt="Car Image">
               <div class="card-body">
-                <h5 class="card-title">{{ car.year}} {{ car.make }}</h5>
-                <p class="card-text card-price">
+                <div class="row">
+                  <h5 class="card-title col-6">{{ car.year}} {{ car.make }}</h5>
+                  <p class="card-text text-center rounded-3 text-white col-6 card-price green-400">
                   <i class="fas fa-tag"></i> {{ car.price }} </p>
-                <h5>{{ car.model }}</h5>
+                </div>
+                
+                
+                <h5 class="text-secondary">{{ car.model }}</h5>
               </div>
               <div class="card-body text-center">
                 <router-link :to="{ name: 'CarView', params: { car_id: car.id }}" class="btn btn-primary w-75">View more Details</router-link>
@@ -102,6 +106,9 @@
   
   .search-input {
     margin-right: 20px;
+  }
+  .search-button {
+    background-color: #02bd88;
   }
   
   /* Car Listings Styles */

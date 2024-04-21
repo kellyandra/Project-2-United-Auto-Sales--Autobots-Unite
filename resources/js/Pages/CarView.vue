@@ -75,7 +75,7 @@ onMounted(() => fetchCarDetails());
         
         <div class="card-body row">
           <div class="col-6">
-            <button type="submit" class=" text-white btn " style="background:#2cab3c;" disabled>Email Owner</button>
+            <button type="submit" class=" text-white reg-btn btn " style="background:#02bd88;" disabled>Email Owner</button>
           </div>
           <div class="col-6 text-end">
             <i class="fa-heartbeat "></i>
@@ -96,5 +96,8 @@ onMounted(() => fetchCarDetails());
 </template>
 
 <style>
-
+.reg-btn {
+        background-color: #02bd88;
+        color: white;
+    }
 </style>
