@@ -40,23 +40,24 @@ class AuthController extends Controller
        
 
 
-        $token = $user->createToken('API Token')->accessToken;
+        $token = '1234';
 
         return response()->json(['user' => $user, 'token' => $token], 201);
     }
 
     public function login(Request $request)
     {
-        {
-            $credentials = request(['email', 'password']);
-            if (! $token = auth()->attempt($credentials)) {
+        
+        $credentials = request(['email', 'password']);
+        // auth()->attempt($credentials)
+        if (!$token = '1234') {
             return response()->json(['error' => 'Unauthorized'], 401);
-            }
-            return response()->json([
+        }
+        return response()->json([
             'message' => 'Login Successful!',
             'access_token' => $token,
-            ]);
-            }
+        ], 200);
+            
 
         return response()->json(['message' => 'Unauthorized'], 401);
     }

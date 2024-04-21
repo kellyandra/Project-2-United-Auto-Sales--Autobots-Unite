@@ -1,9 +1,12 @@
 <script setup>
+import { useRouter } from "vue-router";
+const router = useRouter();
+
     function Login() {
         let loginForm = document.getElementById('loginForm');
         let form_data = new FormData(loginForm);
 
-        fetch("/api/v1/login", {
+        fetch("/api/v1/auth/login", {
             method: "POST",
             body: form_data,
             headers: {
@@ -11,6 +14,9 @@
             }
         })
         .then(async response => {
+            if (!response.ok) {
+                return response.text().then(text => { throw new Error(text) });
+            }
             return response.json();
         })
         .then(function (data) {
