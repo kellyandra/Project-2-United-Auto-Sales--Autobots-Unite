@@ -28,16 +28,16 @@
   
             <!-- Add car, Explore, and My profile links (visible only when logged in) -->
             <li class="nav-item">
-              <RouterLink class="nav-link" to="/cars/new">Add Car</RouterLink>
+              <RouterLink class="nav-link" :class="{ active: $route.path === '/cars/new'}" to="/cars/new">Add Car</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink class="nav-link" to="/explore">Explore</RouterLink>
+              <RouterLink class="nav-link" :class="{ active: $route.path === '/explore'}" to="/explore">Explore</RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink class="nav-link" to="/users/{$user_id}">My Profile</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink class="nav-link" to="/about">About</RouterLink>
+              <RouterLink class="nav-link" :class="{ active: $route.path === '/about'}" to="/about">About</RouterLink>
             </li>
   
             <!-- Logout button (visible only when logged in) -->
