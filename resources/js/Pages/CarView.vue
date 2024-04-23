@@ -2,11 +2,12 @@
 import { ref, onMounted } from "vue";
 
 const props = defineProps({
-  car_id: String
+  car_id: String,
+  user_id: String,
 });
 
 const car = ref(null);
-
+const isFavorite = ref(false); // Tracks whether the car is a favorite
 
 function fetchCarDetails() {
   fetch(`/api/v1/cars/${props.car_id}`, {
@@ -33,7 +34,53 @@ function fetchCarDetails() {
     });
 }
 
-onMounted(() => fetchCarDetails());
+// Fetch if the car is in the user's favorites initially
+function checkFavoriteStatus() {
+  fetch(`/api/v1/users/${props.user_id}/favorites`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    isFavorite.value = data.favorites.some(favCar => favCar.id === props.car_id);
+  })
+  .catch(error => console.error('Failed to check favorite status:', error));
+}
+
+// Toggle favorite status
+function toggleFavorite() {
+  const url = `/api/v1/users/${props.user_id}/cars/${props.car_id}/favorite`;
+  const method = isFavorite.value ? 'DELETE' : 'POST'; // Update this if you have a separate method for deletion
+
+  fetch(url, {
+    method: method,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to update favorite status');
+    }
+    return response.json();
+  })
+  .then(() => {
+    isFavorite.value = !isFavorite.value; // Toggles the local favorite state
+  })
+  .catch(error => {
+    console.error('Error toggling favorite status:', error);
+  });
+}
+
+onMounted(() => {
+  fetchCarDetails();
+  checkFavoriteStatus();
+});
+
 
 </script>
 
@@ -79,9 +126,9 @@ onMounted(() => fetchCarDetails());
             <!--#2cab3c previous green used -->
           </div>
           <div class="col-6 text-end">
-            <span class="border rounded-circle d-inline-flex justify-content-center align-items-center" style="padding: 3px; width: 35px; height: 35px; margin-top: 30px;">
+            <button @click="toggleFavorite" class="border rounded-circle d-inline-flex justify-content-center align-items-center" style="padding: 3px; width: 35px; height: 35px; margin-top: 30px;">
               <i class="fa fa-heart-o" style="font-size:20px;color:red; margin-top: 5px; margin-right: -1px;"></i> 
-            </span>
+            </button>
           </div>
           
         </div>
