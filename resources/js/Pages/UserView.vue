@@ -1,4 +1,4 @@
-<script>
+<script setup>
 
 import  { ref, defineComponent, onMounted } from 'vue';
 
@@ -6,15 +6,6 @@ const props = defineProps({
   user_id: String,
   car_id: String
 });
-
-export default {
-  props: {
-    user: {
-      type: Object,
-      required: true
-    }
-  }
-};
 
 const car = ref(null);
 
