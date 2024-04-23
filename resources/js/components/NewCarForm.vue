@@ -1,22 +1,15 @@
 <script setup>
 
-import {ref} from 'vue';
+import {ref, useRouter} from 'vue';
 
-const CarInfo =ref ({
-    make: '',
-    model: '',
-    colour: '',
-    year: '',
-    price: '',
-    cartype: '',
-    transmission:'',
-    description: '',
-    photo: '',
-});
+const router = useRouter();
+const errorMessage = ref ('');
+
+
 
 //ADD A NEW CAR
 const AddNewCar = () => {
-    const formData = new FormData('NewCarForm');
+    const formData = new FormData(form);
 
     fetch("/api/cars", {
         method: "POST",
@@ -114,7 +107,7 @@ const AddNewCar = () => {
         </div>
 
         <div class="mb-3">
-            <button type="submit" @click="AddNewCar" class="btn btn-success" style="width: 150px; background-color:#15ad87;">Save</button>
+            <button type="submit" class="btn btn-success" style="width: 150px; background-color:#15ad87;">Save</button>
         </div>
     </form>
 </template>
