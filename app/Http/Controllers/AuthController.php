@@ -30,19 +30,17 @@ class AuthController extends Controller
 
 
 
-        $user =new User();
+        $user = new User();
         $user -> name = $request -> input('name');
         $user -> password = $request -> input ('password');
         $user -> location = $request ->input('location');
         $user -> biography = $request ->input('biography');
         $user -> email = $request -> input('email');
         $user -> photo = asset('storage/'. $path);
+        $user -> save();
        
 
-
-        $token = '1234';
-
-        return response()->json(['user' => $user, 'token' => $token], 201);
+        return response()->json(['message' => 'User registered successfully'], 201);
     }
 
     public function login(Request $request)
@@ -53,9 +51,14 @@ class AuthController extends Controller
         if (!$token = '1234') {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
+
+        $user = Auth::user();
+        $user_id = $user->id;
+        
         return response()->json([
             'message' => 'Login Successful!',
             'access_token' => $token,
+            'user_id' => $user_id
         ], 200);
             
 
