@@ -1,4 +1,46 @@
 <script setup>
+
+import {ref} from 'vue';
+
+const CarInfo =ref ({
+    make: '',
+    model: '',
+    colour: '',
+    year: '',
+    price: '',
+    cartype: '',
+    transmission:'',
+    description: '',
+    photo: '',
+});
+
+//ADD A NEW CAR
+const AddNewCar = () => {
+    const formData = new FormData('NewCarForm');
+
+    fetch("/api/cars", {
+        method: "POST",
+        body: formData,
+        headers: {
+            'Accept': 'application/json',
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(data => {
+                throw new Error(data.message || "An error occurred while adding the new car");
+            });
+        }
+        return response.json(); 
+    })
+    .then(data => {
+        router.push('/cars');
+    })
+    .catch(error => {
+        errorMessage.value = error.message; // Update the error message
+        console.error("Failed to add car:", error.message);
+    });
+}
 </script>
 
 <template>
@@ -72,7 +114,7 @@
         </div>
 
         <div class="mb-3">
-            <button type="submit" class="btn btn-success" style="width: 150px; background-color:#15ad87;">Save</button>
+            <button type="submit" @click="AddNewCar" class="btn btn-success" style="width: 150px; background-color:#15ad87;">Save</button>
         </div>
     </form>
 </template>
