@@ -52,13 +52,13 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $user = Auth::user();
-        $user_id = $user->id;
-        
+        // $user = Auth::user();
+        // $user_id = $user->id;
+
         return response()->json([
             'message' => 'Login Successful!',
             'access_token' => $token,
-            'user_id' => $user_id
+            // 'user_id' => $user_id
         ], 200);
             
 
