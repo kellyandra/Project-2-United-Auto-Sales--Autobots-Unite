@@ -21,6 +21,7 @@ function registerUser() {
         return response.json();
     })
     .then(data => {
+        registerForm.reset();
         router.push({path: '/login'});
     })
     .catch(error => {
