@@ -1,8 +1,11 @@
 <script setup>
-  import { ref, onMounted } from "vue";
+  import { ref, onMounted, computed } from "vue";
   let cars = ref([]);
+  let allCars = ref([]);
+  let filterMake = ref("");
+  let filterModel = ref("");
 
-  function fetchMovies() {
+  function fetchCars() {
     fetch("/api/v1/cars", {
             method: 'GET',
             headers: {
@@ -14,55 +17,70 @@
         .then((data) => {
             // display a success message
             console.log(data);
-            cars.value = data.cars;
+            allCars.value = data.cars;
+            cars.value = [...allCars.value];
         })
         .catch(function (error) {
             console.log(error);
         });
   }
 
-  onMounted(() => fetchMovies())
+  function searchCars() {
+    cars.value = allCars.value.filter(car => 
+      car.make.toLowerCase().includes(filterMake.value.toLowerCase()) &&
+      car.model.toLowerCase().includes(filterModel.value.toLowerCase())
+    );
+  }
+
+  onMounted(() => fetchCars())
 </script>
 
 <template>
   <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
+
     <div class="explore-view">
       <!-- Title -->
       <h1 class="title">Explore</h1>
 
-
-      
+      <br>
 
       <!-- Search Bar -->
-      <div class="search-bar">
-        <div class="search-input">
-          <label for="make">Make</label>
-          <input type="text" id="make" placeholder="Enter make">
+      <div class="shadow-sm rounded-2">
+        <div class="row ps-5 ms-5">
+          <div class=" mb-3 col-4">
+            <label for="make">Make</label>
+            <input type="text" class="form-control" id="make" v-model="filterMake" placeholder="Enter make">
+          </div>
+          <div class="mb-3 col-4">
+            <label for="model">Model</label>
+            <input type="text" class="form-control" id="model" v-model="filterModel" placeholder="Enter model">
+          </div>
+          <div class="mb-3 col-4">
+            <br>
+            <button class="search-button btn text-white" @click="searchCars">Search</button>
+          </div>
         </div>
-        <div class="search-input">
-          <label for="model">Model</label>
-          <input type="text" id="model" placeholder="Enter model">
-        </div>
-        <button class="search-button">Search</button>
       </div>
   
       <div class="container mt-5">
-        <div class="row" id="cars-container">
-          <div v-for="car in cars" :key="car.id" class="col-md-6">
-            <div class="col-md-4 mb-4">  
+        <div class="row row-gap-4" id="cars-container">
+          <div v-for="car in cars" :key="car.id" class="col-md-4">
             <div class="card">
               <img :src="car.photo" class="card-img-top" alt="Car Image">
               <div class="card-body">
-                <h5 class="card-title">{{ car.year}} {{ car.make }}</h5>
-                <p class="card-text card-price">
+                <div class="row">
+                  <h5 class="card-title col-6">{{ car.year}} {{ car.make }}</h5>
+                  <p class="card-text text-center rounded-3 w-50 text-white col-6 price-bg">
                   <i class="fas fa-tag"></i> {{ car.price }} </p>
-                <h5>{{ car.model }}</h5>
                 </div>
+                
+                
+                <h5 class="text-secondary">{{ car.model }}</h5>
               </div>
-              <div class="card-footer">
-                <router-link :to="{ name: 'CarView', params: { car_id: car.id }}" class="btn btn-primary">View more Details</router-link>
+              <div class="card-body text-center">
+                <router-link :to="{ name: 'CarView', params: { car_id: car.id }}" class="btn btn-primary w-75">View more Details</router-link>
               </div>
             </div>
           </div>  
@@ -89,7 +107,13 @@
   .search-input {
     margin-right: 20px;
   }
+  .search-button {
+    background-color: #02bd88;
+  }
   
+  .price-bg {
+    background-color: #02bd88;
+  }
   /* Car Listings Styles */
   .car-listings {
     display: flex;

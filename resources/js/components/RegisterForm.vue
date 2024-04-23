@@ -1,4 +1,34 @@
 <script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+function registerUser() {
+    let registerForm = document.getElementById('registerForm');
+    let form_data = new FormData(registerForm);
+
+    fetch("/api/v1/auth/register", {
+        method: 'POST',
+        body: form_data,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response =>{
+        if (!response.ok) {
+            return response.text().then(text => { throw new Error(text) });
+        }
+        return response.json();
+    })
+    .then(data => {
+        router.push({path: '/login'});
+    })
+    .catch(error => {
+        console.error(error);
+    })
+    
+}
+
 </script>
 
 <template>
@@ -26,7 +56,7 @@
         </div>
 
         <div class="col-md-12 mb-3">
-            <label for="property" class="form-label fw-bold">Biography</label>
+            <label for="biography" class="form-label fw-bold">Biography</label>
             <textarea name="biography" id="biography" cols="30" rows="5" class="form-control"></textarea>
         </div>
 
@@ -39,10 +69,14 @@
         </div>
 
         <div class="mb-3">
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn reg-btn">Register</button>
         </div>
     </form>
 </template>
 
 <style>
+    .reg-btn {
+        background-color: #02bd88;
+        color: white;
+    }
 </style>

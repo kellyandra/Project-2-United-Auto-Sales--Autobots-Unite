@@ -1,9 +1,12 @@
 <script setup>
+import { useRouter } from "vue-router";
+const router = useRouter();
+
     function Login() {
         let loginForm = document.getElementById('loginForm');
         let form_data = new FormData(loginForm);
 
-        fetch("/api/v1/login", {
+        fetch("/api/v1/auth/login", {
             method: "POST",
             body: form_data,
             headers: {
@@ -11,6 +14,9 @@
             }
         })
         .then(async response => {
+            if (!response.ok) {
+                return response.text().then(text => { throw new Error(text) });
+            }
             return response.json();
         })
         .then(function (data) {
@@ -37,7 +43,7 @@
                     <input type="password" class="form-control" name="password" placeholder="Password" id="password" required>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn login-btn">Login</button>
                 </div>
             </form>
         </div>
@@ -46,4 +52,8 @@
 </template>
 
 <style scoped>
+    .login-btn {
+        background-color: #02bd88;
+        color: white;
+    }
 </style>

@@ -12,7 +12,7 @@ import McLaren from '../../images/McLaren.jpg';
         <p class="lead mb-4">United Auto Sales provides the fastest, easiest and most user-friendly way to buy or sell cars online. Find a Great Price on the Vehicle You Want.</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
           <router-link to="/register" class="btn btn-primary btn-lg px-4 me-md-2">Register</router-link>
-          <router-link to="/login" class="btn btn-outline-secondary btn-lg px-4">Login</router-link>
+          <router-link to="/login" class="btn reg-btn btn-lg px-4">Login</router-link>
         </div>
       </div>
       <div class="col-md-6">
@@ -23,5 +23,8 @@ import McLaren from '../../images/McLaren.jpg';
 </template>
 
 <style scoped>
-
+.reg-btn {
+        background-color: #02bd88;
+        color: white;
+    }
 </style>
