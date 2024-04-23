@@ -37,8 +37,10 @@ const router = createRouter({
             component: ExploreView
         },
         {
-            path: '/users/{$user_id}',
-            component: UserView
+            path: '/users/:user_id',
+            name: 'UserView',
+            component: UserView,
+            props: true
         },
         {
             path: '/cars/new',

@@ -39,7 +39,7 @@ onMounted(() => fetchCarDetails());
 
 <template>
   <head>
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
   <div v-if="car" class="card mb-3 w-75 h-100 mx-auto" >
@@ -75,10 +75,13 @@ onMounted(() => fetchCarDetails());
         
         <div class="card-body row">
           <div class="col-6">
-            <button type="submit" class=" text-white reg-btn btn " style="background:#02bd88;" disabled>Email Owner</button>
+            <button type="submit" class=" text-white btn " style="background:#15ad87; margin-top: 20px;" disabled>Email Owner</button> 
+            <!--#2cab3c previous green used -->
           </div>
           <div class="col-6 text-end">
-            <i class="fa-heartbeat "></i>
+            <span class="border rounded-circle d-inline-flex justify-content-center align-items-center" style="padding: 3px; width: 35px; height: 35px; margin-top: 30px;">
+              <i class="fa fa-heart-o" style="font-size:20px;color:red; margin-top: 5px; margin-right: -1px;"></i> 
+            </span>
           </div>
           
         </div>

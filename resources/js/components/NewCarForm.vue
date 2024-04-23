@@ -1,4 +1,40 @@
 <script setup>
+
+import {ref} from 'vue';
+import {useRouter} from 'vue-router';
+
+const router = useRouter();
+const errorMessage = ref ('');
+
+
+
+//ADD A NEW CAR
+const AddNewCar = () => {
+    const formData = new FormData(form);
+
+    fetch("/api/cars", {
+        method: "POST",
+        body: formData,
+        headers: {
+            'Accept': 'application/json',
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(data => {
+                throw new Error(data.message || "An error occurred while adding the new car");
+            });
+        }
+        return response.json(); 
+    })
+    .then(data => {
+        router.push('/cars');
+    })
+    .catch(error => {
+        errorMessage.value = error.message; // Update the error message
+        console.error("Failed to add car:", error.message);
+    });
+}
 </script>
 
 <template>

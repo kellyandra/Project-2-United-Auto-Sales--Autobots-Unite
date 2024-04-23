@@ -20,6 +20,9 @@ const router = useRouter();
             return response.json();
         })
         .then(function (data) {
+            localStorage.setItem('token', data.access_token);
+            localStorage.setItem('user_id', data.user_id);
+            loginForm.reset();
             router.push({path: '/explore'});
         })
         .catch(function (error) {
