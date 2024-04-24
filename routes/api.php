@@ -28,13 +28,13 @@ Route::prefix('v1')->group(function () {
     
     // User routes
     Route::post('/users/{user_id}', [UserController::class, 'show']);
-    Route::post('/users/{user_id}/favorites', [FavouritesController::class, 'userFavorites']);
+    Route::post('/users/{user_id}/favorites', [FavouritesController::class, 'getUserFavorites']);
     
     // Search routes
     Route::get('/search', [SearchController::class, 'index']);
 //KELLY NEEDS TO FIX! 
     // Add to favorites
-Route::post('/users/{user_id}/cars/{car_id}/favorite', [FavouritesController::class, 'addFavorite']);
-// Get user favorites
-Route::get('/users/{user_id}/favorites', [FavouritesController::class, 'getUserFavorites']);
+    Route::post('/users/{user_id}/cars/{car_id}/favorite', [FavouritesController::class, 'addFavorite']);
+// remove favorites
+    Route::delete('/users/{user_id}/cars/{car_id}/unfavorite', [FavouritesController::class, 'removeFavorites']);
 });

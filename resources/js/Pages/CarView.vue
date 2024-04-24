@@ -1,9 +1,16 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { defineProps } from "vue";
 
 const props = defineProps({
-  car_id: String,
-  user_id: String,
+  car_id: {
+    type: String,
+    required: true,
+  },
+  user_id: {
+    type: String,
+    required:true,
+  },
 });
 
 const car = ref(null);
@@ -52,8 +59,13 @@ function checkFavoriteStatus() {
 
 // Toggle favorite status
 function toggleFavorite() {
-  const url = `/api/v1/users/${props.user_id}/cars/${props.car_id}/favorite`;
-  const method = isFavorite.value ? 'DELETE' : 'POST'; // Update this if you have a separate method for deletion
+  // Define the API endpoint
+  const url = isFavorite.value
+    ? `/api/v1/users/${props.user_id}/cars/${props.car_id}/unfavorite`  // API endpoint to unfavorite
+    : `/api/v1/users/${props.user_id}/cars/${props.car_id}/favorite`;  // API endpoint to favorite
+
+  // Decide the HTTP method based on current favorite status
+  const method = isFavorite.value ? 'DELETE' : 'POST';
 
   fetch(url, {
     method: method,
@@ -69,7 +81,8 @@ function toggleFavorite() {
     return response.json();
   })
   .then(() => {
-    isFavorite.value = !isFavorite.value; // Toggles the local favorite state
+    isFavorite.value = !isFavorite.value;  // Toggle the local favorite state
+    console.log('Favourite status after toggle:', isFavorite.value);
   })
   .catch(error => {
     console.error('Error toggling favorite status:', error);
@@ -127,7 +140,7 @@ onMounted(() => {
           </div>
           <div class="col-6 text-end">
             <button @click="toggleFavorite" class="border rounded-circle d-inline-flex justify-content-center align-items-center" style="padding: 3px; width: 35px; height: 35px; margin-top: 30px;">
-              <i class="fa fa-heart-o" style="font-size:20px;color:red; margin-top: 5px; margin-right: -1px;"></i> 
+              <i :class="isFavorite ? 'fa fa-heart' : 'fa fa-heart-o' " style="font-size:20px;color:red; margin-top: 5px; margin-right: -1px;"></i> 
             </button>
           </div>
           
