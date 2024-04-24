@@ -48,17 +48,17 @@ class AuthController extends Controller
         
         $credentials = request(['email', 'password']);
         // auth()->attempt($credentials)
-        if (!$token = '1234') {
+        if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        // $user = Auth::user();
-        // $user_id = $user->id;
+        $user = Auth::user();
+        $user_id = $user->id;
 
         return response()->json([
             'message' => 'Login Successful!',
             'access_token' => $token,
-            // 'user_id' => $user_id
+            'user_id' => $user_id
         ], 200);
             
 

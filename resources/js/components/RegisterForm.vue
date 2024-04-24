@@ -1,3 +1,81 @@
+<script setup>
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const fileInput = ref(null);
+const isFileAttached = ref(false);
+
+const registrationSuccess = ref(false);
+const userData = ref({
+    name: '',
+    password: '',
+    email: '',
+    location: '',
+    biography: ''
+});
+
+const passwordError = computed(() => {
+    if (userData.value.password.length < 6) {
+        return 'Password must be at least 6 characters long';
+    } else {
+        return '';
+    }
+});
+
+const emailError = computed(() => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(userData.value.email)) {
+        return 'Invalid email format';
+    } else {
+        return '';
+    }
+});
+
+const emailTakenError = ref('');
+
+const registerUser = () => {
+    emailTakenError.value = ''; // Reset emailTakenError before registration
+    if (!userData.value.name.trim() || !userData.value.biography.trim() || !userData.value.location.trim() || !isFileAttached.value || passwordError.value || emailError.value) {
+        return; // Don't proceed with registration if there are errors
+    }
+    let registerForm = document.getElementById('registerForm');
+    let form_data = new FormData(registerForm);
+
+    // Append user data to form_data
+    // Object.entries(userData.value).forEach(([key, value]) => {
+    //     form_data.append(key, value);
+    // });
+
+    fetch("/api/v1/auth/register", {
+        method: 'POST',
+        body: form_data,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(data => {
+        registrationSuccess.value = true; // Show success message
+        setTimeout(() => {
+            registrationSuccess.value = false; // Hide success message
+            registerForm.reset(); // Reset the form
+            router.push({path: '/login'});
+        }, 2000); // Delay in milliseconds
+    })
+    .catch(error => {
+        console.error(error);
+    });
+};
+
+const handleFileChange = () => {
+    const files = fileInput.value.files;
+    isFileAttached.value = files.length > 0;
+};
+
+
+</script>
+
+
 <template>
     <h1>Register New User</h1>
     <form class="row g-3" @submit.prevent="registerUser" id="registerForm" action="" enctype="multipart/form-data" method="post">
@@ -68,83 +146,6 @@
         </div>
     </div>
 </template>
-
-<script setup>
-import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
-const fileInput = ref(null);
-const isFileAttached = ref(false);
-
-const registrationSuccess = ref(false);
-const userData = ref({
-    name: '',
-    password: '',
-    email: '',
-    location: '',
-    biography: ''
-});
-
-const passwordError = computed(() => {
-    if (userData.value.password.length < 6) {
-        return 'Password must be at least 6 characters long';
-    } else {
-        return '';
-    }
-});
-
-const emailError = computed(() => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(userData.value.email)) {
-        return 'Invalid email format';
-    } else {
-        return '';
-    }
-});
-
-const emailTakenError = ref('');
-
-const registerUser = () => {
-    emailTakenError.value = ''; // Reset emailTakenError before registration
-    if (!userData.value.name.trim() || !userData.value.biography.trim() || !userData.value.location.trim() || !isFileAttached.value || passwordError.value || emailError.value) {
-        return; // Don't proceed with registration if there are errors
-    }
-    let registerForm = document.getElementById('registerForm');
-    let form_data = new FormData(registerForm);
-
-    // Append user data to form_data
-    Object.entries(userData.value).forEach(([key, value]) => {
-        form_data.append(key, value);
-    });
-
-    fetch("/api/v1/auth/users", {
-        method: 'POST',
-        body: form_data,
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-    .then(data => {
-        registrationSuccess.value = true; // Show success message
-        setTimeout(() => {
-            registrationSuccess.value = false; // Hide success message
-            registerForm.reset(); // Reset the form
-            router.push({path: '/login'});
-        }, 2000); // Delay in milliseconds
-    })
-    .catch(error => {
-        console.error(error);
-    });
-};
-
-const handleFileChange = () => {
-    const files = fileInput.value.files;
-    isFileAttached.value = files.length > 0;
-};
-
-
-</script>
 
 <style>
     .reg-btn {

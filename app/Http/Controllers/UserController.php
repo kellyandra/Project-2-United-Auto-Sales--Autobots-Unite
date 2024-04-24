@@ -10,11 +10,11 @@ class UserController extends Controller
     public function show($user_id)
     {
         $user = User::find($user_id);
-
+   
         if (!$user) {
             return response()->json(['error' => 'User not found'], 404);
         }
-
+        
         return response()->json(['user' => $user]);
     }
 
