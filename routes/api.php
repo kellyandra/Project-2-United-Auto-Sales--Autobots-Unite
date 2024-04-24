@@ -32,4 +32,9 @@ Route::prefix('v1')->group(function () {
     
     // Search routes
     Route::get('/search', [SearchController::class, 'index']);
+//KELLY NEEDS TO FIX! 
+    // Add to favorites
+Route::post('/users/{user_id}/cars/{car_id}/favorite', [FavouritesController::class, 'addFavorite']);
+// Get user favorites
+Route::get('/users/{user_id}/favorites', [FavouritesController::class, 'getUserFavorites']);
 });

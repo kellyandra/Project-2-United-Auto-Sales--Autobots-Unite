@@ -28,6 +28,7 @@ const AddNewCar = () => {
         return response.json(); 
     })
     .then(data => {
+        formRef.value.reset(); // Reset the form
         router.push('/cars');
     })
     .catch(error => {

@@ -40,4 +40,24 @@ class FavouritesController extends Controller
 
         return response()->json(['favorites' => $favorites]);
     }
+
+    public function removeFavorite($user_id, $car_id)
+{
+    $user = User::find($user_id);
+
+    if (!$user) {
+        return response()->json(['error' => 'User not found'], 404);
+    }
+
+    $car = Car::find($car_id);
+
+    if (!$car) {
+        return response()->json(['error' => 'Car not found'], 404);
+    }
+
+    // Remove/Detach the car from the user's favorites
+    $user->favorites()->detach($car_id);
+
+    return response()->json(['message' => 'Car removed from favorites successfully']);
+}
 }
