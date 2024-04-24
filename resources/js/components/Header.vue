@@ -62,7 +62,7 @@
               <RouterLink class="nav-link" :class="{ active: $route.path === '/explore'}" to="/explore">Explore</RouterLink>
             </li>
             <li class="nav-item">
-              <!-- <RouterLink class="nav-link" :to="{ name: 'UserView', params: { user_id: userId }}">My Profile</RouterLink> -->
+              <RouterLink class="nav-link" :to="{ name: 'UserView', params: { user_id: userId }}">My Profile</RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink class="nav-link" :class="{ active: $route.path === '/about'}" to="/about">About</RouterLink>
@@ -70,7 +70,7 @@
   
             <!-- Logout button (visible only when logged in) -->
             <li class="nav-item">
-              <button class="btn btn-outline-light" @click="logout">Logout</button>
+              <button class="btn btn-outline-light"  to="/logout">Logout</button>
             </li>
 
           </ul>
