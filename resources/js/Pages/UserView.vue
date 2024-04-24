@@ -26,7 +26,7 @@ function fetchCarDetails() {
     .then(data => {
         
         console.log(data);
-        car.value = data.favorites;
+        cars.value = data.favorites;
     })
     .catch(error => {
       console.error("There was an error fetching the car details:", error);
@@ -76,7 +76,9 @@ function fetchUserInfo () {
   }
 });
 
-    onMounted(() => fetchUserInfo());
+onMounted(() => { fetchUserInfo();
+                  fetchCarDetails();
+                });
 
 
 </script>
@@ -115,36 +117,36 @@ function fetchUserInfo () {
     User not found
   </div>
 
-<!-- <div class="favorited-cars">
+<div class="favorited-cars">
   <h2>Favorited Cars</h2>
   <div class = "car-holder col-md-12">
       <ul class = "row">
-      <li v-for= "car in cars" :key = "car.id" class ="single-car-list card col-md-4"> -->
+      <li v-for= "car in cars" :key = "car.id" class ="single-car-list card col-md-4">
       <!-- <li class ="single-car-list card col-md-4"> -->
         <!-- Had to use inline styling for the next part to overwrite conflicting styling, ID would not be optimal -->
-        <!-- <img class = "row card-img-top" 
+        <img class = "row card-img-top" 
         style="width:100%; height:100%; padding:5px; object-fit:contain; justify-content:center; align-items:center;" 
-        :src="car.photo" alt="Please Work"> -->
+        :src="car.photo" alt="Please Work">
         <!-- src="..\..\images\McLaren.jpg" alt="Please Work"> -->
-      <!-- <div class = "row col-md-12">
+      <div class = "row col-md-12">
         <p class ="col year-price">{{ car.year }}  {{ car.make }}</p><p class = "col rounded-green">
           <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe52LuKTsxLrZz579799LdJ43ZSrXV2JhheHdBLUtF1D0ff-fcR9h8vdzyOC7nc73kmnk&usqp=CAU">
           {{ car.price }}</p>
-        <p>{{ car.model }}</p> -->
-        <!-- <p class ="col year-price">2026 DC</p><p class = "col rounded-green">
+        <p>{{ car.model }}</p>
+        <p class ="col year-price">2026 DC</p><p class = "col rounded-green">
           <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe52LuKTsxLrZz579799LdJ43ZSrXV2JhheHdBLUtF1D0ff-fcR9h8vdzyOC7nc73kmnk&usqp=CAU">
           Expensive As Hell</p>
-        <p>The Batmobile</p> -->
-        <!-- </div> -->
+        <p>The Batmobile</p>
+        </div>
         <!-- <router-link v-if="!isAuthenticated" to="/explore" class="btn btn-primary mb-2 mt-2">View More Details</router-link>         -->
         <!-- <router-link v-else to="/cars/${car_id}" class="btn btn-primary mb-2 mt-2">View More Details</router-link>         -->
-    <!-- </li>
+    </li>
   </ul>
-    </div> -->
+    </div>
     <!-- <li v-for="car in user.favoritedCars" :key="car.id">
       {{ car.make }} - {{ car.model }}
     </li> -->
-<!-- </div> -->
+</div>
 
 </div>
 </template>
