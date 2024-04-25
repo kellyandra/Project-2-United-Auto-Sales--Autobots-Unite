@@ -2,19 +2,18 @@
 import { ref, onMounted } from "vue";
 import { defineProps } from "vue";
 
+const isFavorite = ref(false); // Tracks whether the car is a favorite
+const message = ref('');
+const car = ref(null);
+
 const props = defineProps({
   car_id: {
     type: String,
     required: true,
-  },
-  user_id: {
-    type: String,
-    required:true,
-  },
+  }
 });
 
-const car = ref(null);
-const isFavorite = ref(false); // Tracks whether the car is a favorite
+
 
 function fetchCarDetails() {
   fetch(`/api/v1/cars/${props.car_id}`, {
@@ -41,58 +40,46 @@ function fetchCarDetails() {
     });
 }
 
-// Fetch if the car is in the user's favorites initially
-function checkFavoriteStatus() {
-  fetch(`/api/v1/users/${props.user_id}/favorites`, {
-    method: 'GET',
+// // Toggle favorite status
+function toggleFavorite() {
+  fetch(`/api/v1/cars/${props.car_id}/favorite`, {
+
+    method: 'POST',
+    body: JSON.stringify({car_id: props.car_id}),
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      'Accept': 'application/json',
+      // 'Authorization': 'Bearer ' + localStorage.getItem('token'),
     }
   })
   .then(response => response.json())
   .then(data => {
-    isFavorite.value = data.favorites.some(favCar => favCar.id === props.car_id);
+    isFavorite.value = data.status;
+    message.value = data.message;
   })
   .catch(error => console.error('Failed to check favorite status:', error));
 }
 
-// Toggle favorite status
-function toggleFavorite() {
-  // Define the API endpoint
-  const url = isFavorite.value
-    ? `/api/v1/users/${props.user_id}/cars/${props.car_id}/unfavorite`  // API endpoint to unfavorite
-    : `/api/v1/users/${props.user_id}/cars/${props.car_id}/favorite`;  // API endpoint to favorite
+// Fetch if the car is in the user's favorites initially
+function getFavoriteStatus() {
+  fetch(`/api/v1/cars/${props.car_id}/favorite`, {
 
-  // Decide the HTTP method based on current favorite status
-  const method = isFavorite.value ? 'DELETE' : 'POST';
-
-  fetch(url, {
-    method: method,
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+    // 'Authorization': 'Bearer ' + localStorage.getItem('token'),
     }
   })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Failed to update favorite status');
-    }
-    return response.json();
+  .then(response => response.json())
+  .then(data => {
+    isFavorite.value = data.status;
   })
-  .then(() => {
-    isFavorite.value = !isFavorite.value;  // Toggle the local favorite state
-    console.log('Favourite status after toggle:', isFavorite.value);
-  })
-  .catch(error => {
-    console.error('Error toggling favorite status:', error);
-  });
-}
+  .catch(error => console.error('Failed to check favorite status:', error));
 
-onMounted(() => {
-  fetchCarDetails();
-  checkFavoriteStatus();
-});
+ }
+
+onMounted(() => { fetchCarDetails();
+                  getFavoriteStatus(); 
+                });
 
 
 </script>
@@ -140,7 +127,7 @@ onMounted(() => {
           </div>
           <div class="col-6 text-end">
             <button @click="toggleFavorite" class="border rounded-circle d-inline-flex justify-content-center align-items-center" style="padding: 3px; width: 35px; height: 35px; margin-top: 30px;">
-              <i :class="isFavorite ? 'fa fa-heart' : 'fa fa-heart-o' " style="font-size:20px;color:red; margin-top: 5px; margin-right: -1px;"></i> 
+              <i class="fa" :class="isFavorite ? 'fa-heart' : 'fa-heart-o'" style="font-size:20px;color:red; margin-top: 5px; margin-right: -1px;"></i> 
             </button>
           </div>
           

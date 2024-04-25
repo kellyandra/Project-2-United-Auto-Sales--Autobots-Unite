@@ -40,7 +40,7 @@ function fetchUserInfo () {
   fetch(
     `/api/v1/users/${props.user_id}`, 
     {
-      method: 'POST',
+      method: 'GET',
       headers: {
       'Accept': 'application/json'
     }

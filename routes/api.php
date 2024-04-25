@@ -25,10 +25,11 @@ Route::prefix('v1')->group(function () {
     Route::post('/cars', [CarController::class, 'store']);
     Route::get('/cars/{car_id}', [CarController::class, 'show']);
     Route::post('/cars/{car_id}/favorite', [FavouritesController::class, 'store']);
+    Route::get('/cars/{car_id}/favorite', [FavouritesController::class, 'store']);
     
     // User routes
     Route::post('/users/{user_id}', [UserController::class, 'show']);
-    Route::post('/users/{user_id}/favorites', [FavouritesController::class, 'getUserFavorites']);
+    Route::get('/users/{user_id}/favorites', [FavouritesController::class, 'getUserFavorites']);
     
     // Search routes
     Route::get('/search', [SearchController::class, 'index']);
