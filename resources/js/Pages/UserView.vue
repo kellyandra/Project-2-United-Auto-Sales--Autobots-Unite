@@ -40,7 +40,7 @@ function fetchUserInfo () {
   fetch(
     `/api/v1/users/${props.user_id}`, 
     {
-      method: 'GET',
+      method: 'POST',
       headers: {
       'Accept': 'application/json'
     }
@@ -83,29 +83,30 @@ onMounted(() => { fetchUserInfo();
 
 </script>
 
-<template>
+<template style>
+  <div>
 
-  <div class = "container">
-  <div v-if="user" class="user-profile card">
+  <div class = "container col-md-10">
+  <div v-if="user" class="user-profile card" style ="margin:auto;">
     <div class="row g-0">
-      <div class="col-md-3">
+      <div class="col-md-2">
         <div class="profile-picture img-fluid">
           <img :src ="user.photo" alt="Please Work">
           <!-- <img src="..\..\images\McLaren.jpg" alt="Please Work"> -->
           <!-- <img :src="user.profilePictureUrl" alt="Profile Picture"> -->
         </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-10">
         <div class="profile-details row">
           <h2>{{ user.name }}</h2>
           <div class = "username-and-bio">
          <!-- <h3>@TheOnlyOneSheWant</h3><br> -->
-          <p></p>
+          <p>{{ user.biography }}</p>
           </div>
-          <div class ="title-headings col-md-3">
+          <div class ="title-headings col-md-2">
           <p>Email: <br> Location:<br> Date Joined:</p>
           </div>
-          <div class ="title-sub-hedings col-md-5">
+          <div class ="title-sub-headings col-md-7">
           <p> {{ user.email }} <br> {{ user.location }} <br> {{ formattedCreatedAt }} </p>
           <!-- <p> alright@gmail.com <br> Let's Say heaven<br> Yesterday's Tomorrow</p> -->
           </div>
@@ -113,6 +114,7 @@ onMounted(() => { fetchUserInfo();
       </div>
     </div>
   </div>
+
   <div v-else>
     User not found
   </div>
@@ -147,12 +149,15 @@ onMounted(() => { fetchUserInfo();
       {{ car.make }} - {{ car.model }}
     </li> -->
 </div>
+</div>
 
 </div>
 </template>
 
 
 <style scoped>
+
+
 .user-profile {
   display: flex;
   align-items: flex-start;
@@ -161,11 +166,12 @@ onMounted(() => { fetchUserInfo();
 
 .profile-picture {
   margin-right: 20px;
+  max-width:175px;
 }
 
 .profile-picture img {
-  width: 175px;
-  height: 175px;
+  width: 100%;
+  height: auto;
   border-radius: 50%;
 }
 
@@ -178,6 +184,11 @@ onMounted(() => { fetchUserInfo();
 }
 .profile-details .title-headings{
   color:grey;
+  font-weight:bold;
+}
+
+.profile-details .title-sub-headings{
+  font-weight:600;
 }
 
 .favorited-cars {
@@ -216,5 +227,4 @@ onMounted(() => { fetchUserInfo();
   width:1000px;
   height:1000px;
 }
-
 </style>
