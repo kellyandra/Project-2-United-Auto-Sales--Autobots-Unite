@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator; 
+use Illuminate\Support\Facades\Session;
 
 
 
@@ -43,11 +42,16 @@ class AuthController extends Controller
         return response()->json(['message' => 'User registered successfully'], 201);
     }
 
+    /**
+    * Get a JWT via given credentials.
+    *
+    * @return \Illuminate\Http\JsonResponse
+    */
     public function login(Request $request)
     {
         
         $credentials = request(['email', 'password']);
-        // auth()->attempt($credentials)
+        
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -70,9 +74,10 @@ class AuthController extends Controller
  *
  * @return \Illuminate\Http\JsonResponse
  */
-     public function logout()
-        {
-     auth()->logout();
+     public function logout() {
+        auth()->logout();
+        Session::flush();
+
         return response()->json(['message' => 'Successfully logged out']);
      }   
 }

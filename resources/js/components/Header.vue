@@ -1,27 +1,29 @@
 <script setup>
   import { ref, onMounted, onUnmounted } from 'vue';
 
+  const isLoggedIn = ref(!!localStorage.getItem('token')); 
   const userId = ref(localStorage.getItem('user_id'));
-  const token = ref(localStorage.getItem('token'));
+  // // const token = ref(localStorage.getItem('token'));
 
   function updateUserId() {
     userId.value = localStorage.getItem('user_id');
   }
 
-  function updateToken() {
-    token.value = localStorage.getItem('token');
-  }
+  // function updateToken() {
+  //   token.value = localStorage.getItem('token');
+  // }
   
 
   onMounted(() => {
     window.addEventListener('storage', updateUserId);
-    window.addEventListener('storage', updateToken);
+    // window.addEventListener('storage', updateToken);
   });
 
-  onUnmounted(() => {
-    window.removeEventListener('storage', updateUserId);
-    window.removeEventListener('storage', updateToken);
-  });
+  // onUnmounted(() => {
+  //   window.removeEventListener('storage', updateUserId);
+  //  // window.removeEventListener('storage', updateToken);
+  // });
+
 </script>
 <template>
   <head>
@@ -42,7 +44,7 @@
   
         <!-- Navigation links -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul v-if="!token" class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <ul v-if="!isLoggedIn" class="navbar-nav ms-auto mb-2 mb-lg-0">
             <!-- Register and Login links -->
             <li class="nav-item">
               <RouterLink class="nav-link" :class="{ active: $route.path === '/register'}" to="/register">Register</RouterLink>
@@ -61,7 +63,7 @@
             <li class="nav-item">
               <RouterLink class="nav-link" :class="{ active: $route.path === '/explore'}" to="/explore">Explore</RouterLink>
             </li>
-            <li class="nav-item">
+            <li v-if="userId" class="nav-item">
               <RouterLink class="nav-link" :to="{ name: 'UserView', params: { user_id: userId }}">My Profile</RouterLink>
             </li>
             <li class="nav-item">
@@ -70,7 +72,7 @@
   
             <!-- Logout button (visible only when logged in) -->
             <li class="nav-item">
-              <button class="btn btn-outline-light"  to="/logout">Logout</button>
+              <RouterLink class="nav-link btn-outline-light" :class="{ active: $route.path === '/logout'}"  to="/logout">Logout</RouterLink>
             </li>
 
           </ul>

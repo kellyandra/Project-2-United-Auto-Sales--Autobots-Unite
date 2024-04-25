@@ -9,7 +9,7 @@
     fetch("/api/v1/cars", {
             method: 'GET',
             headers: {
-                // 'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             }
         })

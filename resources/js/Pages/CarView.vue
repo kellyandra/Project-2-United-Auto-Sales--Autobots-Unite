@@ -7,12 +7,8 @@ const message = ref('');
 const car = ref(null);
 
 const props = defineProps({
-  car_id: {
-    type: String,
-    required: true,
-  }
+  car_id: String
 });
-
 
 
 function fetchCarDetails() {
@@ -20,14 +16,15 @@ function fetchCarDetails() {
 
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
     }
 
     })
     .then(response => {
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+                return response.text().then(text => { throw new Error(text) });
+            }
       return response.json();
     })
     .then(data => {
@@ -42,17 +39,26 @@ function fetchCarDetails() {
 
 // // Toggle favorite status
 function toggleFavorite() {
+  console.log("Sending car_id:", props.car_id);
+
   fetch(`/api/v1/cars/${props.car_id}/favorite`, {
 
     method: 'POST',
-    body: JSON.stringify({car_id: props.car_id}),
+    body: JSON.stringify({'car_id': props.car_id}),
     headers: {
       'Accept': 'application/json',
-      // 'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
     }
   })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+                return response.text().then(text => { throw new Error(text) });
+            }
+    return response.json()
+  })
   .then(data => {
+    console.log(data)
     isFavorite.value = data.status;
     message.value = data.message;
   })
@@ -66,7 +72,7 @@ function getFavoriteStatus() {
   method: 'GET',
   headers: {
     'Content-Type': 'application/json',
-    // 'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    'Authorization': 'Bearer ' + localStorage.getItem('token'),
     }
   })
   .then(response => response.json())

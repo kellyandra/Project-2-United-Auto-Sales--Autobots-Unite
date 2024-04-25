@@ -35,10 +35,11 @@ const emailError = computed(() => {
 const emailTakenError = ref('');
 
 const registerUser = () => {
-    emailTakenError.value = ''; // Reset emailTakenError before registration
-    if (!userData.value.name.trim() || !userData.value.biography.trim() || !userData.value.location.trim() || !isFileAttached.value || passwordError.value || emailError.value) {
-        return; // Don't proceed with registration if there are errors
-    }
+    // emailTakenError.value = ''; // Reset emailTakenError before registration
+    // if (!userData.value.name.trim() || !userData.value.biography.trim() || !userData.value.location.trim() || !isFileAttached.value || passwordError.value || emailError.value) {
+    //     return; // Don't proceed with registration if there are errors
+    // }
+
     let registerForm = document.getElementById('registerForm');
     let form_data = new FormData(registerForm);
 
@@ -54,13 +55,17 @@ const registerUser = () => {
             'Accept': 'application/json'
         }
     })
+    .then(response =>{
+        return response.json();
+    })
     .then(data => {
         registrationSuccess.value = true; // Show success message
         setTimeout(() => {
             registrationSuccess.value = false; // Hide success message
-            registerForm.reset(); // Reset the form
-            router.push({path: '/login'});
+            
         }, 2000); // Delay in milliseconds
+        registerForm.reset(); // Reset the form
+        router.push({path: '/login'});
     })
     .catch(error => {
         console.error(error);
@@ -120,10 +125,10 @@ const handleFileChange = () => {
             <label for="photo" class="form-label fw-bold d-block">Photo</label>
             <label for="photo" class="btn btn-outline-secondary">
                 Browse
-                <input class="form-control d-none" type="file" name="photo" id="photo" ref="fileInput" @change="handleFileChange">
+                <input class="form-control d-none" type="file" name="photo" id="photo" ref="fileInput" >
             </label>
-            <p v-if="isFileAttached">File attached!</p>
-            <p class="text-danger" v-if="!isFileAttached">Photo is required</p>
+            <!-- <p v-if="isFileAttached">File attached!</p>
+            <p class="text-danger" v-if="!isFileAttached">Photo is required</p> -->
         </div>
 
         <!-- Register Button -->

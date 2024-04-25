@@ -36,6 +36,7 @@ class CarController extends Controller
         }
 
         $car = new Car();
+        $car->user_id = auth()->id();
         $car->make = $request->make;
         $car->model = $request->model;
         $car->colour = $request->colour;

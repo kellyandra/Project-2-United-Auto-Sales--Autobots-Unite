@@ -13,7 +13,8 @@ function fetchCarDetails() {
 
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
     }
 
     })
@@ -40,9 +41,10 @@ function fetchUserInfo () {
   fetch(
     `/api/v1/users/${props.user_id}`, 
     {
-      method: 'POST',
+      method: 'GET',
       headers: {
-      'Accept': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
     }
 
     })
@@ -86,70 +88,67 @@ onMounted(() => { fetchUserInfo();
 <template style>
   <div>
 
-  <div class = "container col-md-10">
-  <div v-if="user" class="user-profile card" style ="margin:auto;">
-    <div class="row g-0">
-      <div class="col-md-2">
-        <div class="profile-picture img-fluid">
-          <img :src ="user.photo" alt="Please Work">
-          <!-- <img src="..\..\images\McLaren.jpg" alt="Please Work"> -->
-          <!-- <img :src="user.profilePictureUrl" alt="Profile Picture"> -->
+      <div class = "container col-md-10">
+      <div v-if="user" class="user-profile card" style ="margin:auto;">
+        <div class="row g-0">
+          <div class="col-md-2">
+            <div class="profile-picture img-fluid">
+              <img :src ="user.photo" alt="Please Work">
+              <!-- <img src="..\..\images\McLaren.jpg" alt="Please Work"> -->
+              <!-- <img :src="user.profilePictureUrl" alt="Profile Picture"> -->
+            </div>
+          </div>
+          <div class="col-md-10">
+            <div class="profile-details row">
+              <h2>{{ user.name }}</h2>
+              <div class = "username-and-bio">
+             <!-- <h3>@TheOnlyOneSheWant</h3><br> -->
+              <p>{{ user.biography }}</p>
+              </div>
+              <div class ="title-headings col-md-2">
+              <p>Email: <br> Location:<br> Date Joined:</p>
+              </div>
+              <div class ="title-sub-headings col-md-7">
+              <p> {{ user.email }} <br> {{ user.location }} <br> {{ formattedCreatedAt }} </p>
+              <!-- <p> alright@gmail.com <br> Let's Say heaven<br> Yesterday's Tomorrow</p> -->
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-10">
-        <div class="profile-details row">
-          <h2>{{ user.name }}</h2>
-          <div class = "username-and-bio">
-         <!-- <h3>@TheOnlyOneSheWant</h3><br> -->
-          <p>{{ user.biography }}</p>
-          </div>
-          <div class ="title-headings col-md-2">
-          <p>Email: <br> Location:<br> Date Joined:</p>
-          </div>
-          <div class ="title-sub-headings col-md-7">
-          <p> {{ user.email }} <br> {{ user.location }} <br> {{ formattedCreatedAt }} </p>
-          <!-- <p> alright@gmail.com <br> Let's Say heaven<br> Yesterday's Tomorrow</p> -->
-          </div>
+    
+      <div v-else>
+        User not found
+      </div>
+    
+      <div class="favorited-cars">
+        <h2>Favorited Cars</h2>
+        <div class="container mt-5">
+        <div class="row row-gap-4" id="cars-container">
+          <div v-for="car in cars" :key="car.id" class="col-md-4">
+            <div class="card">
+              <img :src="car.photo" class="card-img-top" alt="Car Image">
+              <div class="card-body">
+                <div class="row">
+                  <h5 class="card-title col-6">{{ car.year}} {{ car.make }}</h5>
+                  <p class="card-text text-center rounded-3 w-50 text-white col-6 price-bg">
+                  <i class="fas fa-tag"></i> {{ car.price }} </p>
+                </div>
+                
+                
+                <h5 class="text-secondary">{{ car.model }}</h5>
+              </div>
+              <div class="card-body text-center">
+                <router-link :to="{ name: 'CarView', params: { car_id: car.id }}" class="btn btn-primary w-75">View more Details</router-link>
+              </div>
+            </div>
+          </div>  
         </div>
       </div>
-    </div>
-  </div>
 
-  <div v-else>
-    User not found
-  </div>
 
-<div class="favorited-cars">
-  <h2>Favorited Cars</h2>
-  <div class = "car-holder col-md-12">
-      <ul class = "row">
-      <li v-for= "car in cars" :key = "car.id" class ="single-car-list card col-md-4">
-      <!-- <li class ="single-car-list card col-md-4"> -->
-        <!-- Had to use inline styling for the next part to overwrite conflicting styling, ID would not be optimal -->
-        <img class = "row card-img-top" 
-        style="width:100%; height:100%; padding:5px; object-fit:contain; justify-content:center; align-items:center;" 
-        :src="car.photo" alt="Please Work">
-        <!-- src="..\..\images\McLaren.jpg" alt="Please Work"> -->
-      <div class = "row col-md-12">
-        <p class ="col year-price">{{ car.year }}  {{ car.make }}</p><p class = "col rounded-green">
-          <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe52LuKTsxLrZz579799LdJ43ZSrXV2JhheHdBLUtF1D0ff-fcR9h8vdzyOC7nc73kmnk&usqp=CAU">
-          {{ car.price }}</p>
-        <p>{{ car.model }}</p>
-        <p class ="col year-price">2026 DC</p><p class = "col rounded-green">
-          <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe52LuKTsxLrZz579799LdJ43ZSrXV2JhheHdBLUtF1D0ff-fcR9h8vdzyOC7nc73kmnk&usqp=CAU">
-          Expensive As Hell</p>
-        <p>The Batmobile</p>
-        </div>
-        <!-- <router-link v-if="!isAuthenticated" to="/explore" class="btn btn-primary mb-2 mt-2">View More Details</router-link>         -->
-        <!-- <router-link v-else to="/cars/${car_id}" class="btn btn-primary mb-2 mt-2">View More Details</router-link>         -->
-    </li>
-  </ul>
+      </div>
     </div>
-    <!-- <li v-for="car in user.favoritedCars" :key="car.id">
-      {{ car.make }} - {{ car.model }}
-    </li> -->
-</div>
-</div>
 
 </div>
 </template>
@@ -222,9 +221,5 @@ onMounted(() => { fetchUserInfo();
     color:white;
 }
 
-.card-img-top 
-{
-  width:1000px;
-  height:1000px;
-}
+
 </style>

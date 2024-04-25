@@ -6,28 +6,31 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Car;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class FavouritesController extends Controller
 {
-    public function addFavorite(Request $request)
+    public function addFavorite(Request $request, $car_id)
     {
-        $userID = Auth::id();
+        $userID = auth()->id();
         $user = User::find($userID);
         if (!$user) {
             return response()->json(['error' => 'User not found'], 404);
         }
-    
+       
         $carId = $request->input('car_id');
-
+        
+        
         $isFavorite = $user->favoriteCars()->where('car_id', $carId)->exists();
+       
         if($isFavorite){
 
             $user->favoriteCars()->detach($carId); // Removes the favorite car
-            return response()->json(['status' => $isFavorite, 'message' => 'Car removed from favorites.']);
+            return response()->json(['status' => !$isFavorite, 'message' => 'Car removed from favorites.']);
 
         }else {
             $user->favoriteCars()->attach($carId); // Adds a new favorite car
-            return response()->json(['status' => $isFavorite, 'message' => 'Car added favorites.']);
+            return response()->json(['status' => !$isFavorite, 'message' => 'Car added favorites.']);
         }
     }
 

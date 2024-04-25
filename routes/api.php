@@ -13,10 +13,10 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/v1/auth/register',[AuthController::class, 'register']);
-Route::post('/v1/auth/login', [AuthController::class, 'login']);
+Route::post('/v1/auth/login', [AuthController::class, 'login'])->name('login');
 
-//middleware(['auth:api'])->
-Route::prefix('v1')->group(function () {
+//
+Route::middleware(['auth:api'])->prefix('v1')->group(function () {
     // Authentication routes
     Route::post('/auth/logout', [AuthController::class, 'logout']);
 
@@ -24,18 +24,13 @@ Route::prefix('v1')->group(function () {
     Route::get('/cars', [CarController::class, 'index']);
     Route::post('/cars', [CarController::class, 'store']);
     Route::get('/cars/{car_id}', [CarController::class, 'show']);
-    Route::post('/cars/{car_id}/favorite', [FavouritesController::class, 'store']);
-    Route::get('/cars/{car_id}/favorite', [FavouritesController::class, 'store']);
+    Route::post('/cars/{car_id}/favorite', [FavouritesController::class, 'addFavorite']);
+    Route::get('/cars/{car_id}/favorite', [FavouritesController::class, 'isFavorite']);
     
     // User routes
-    Route::post('/users/{user_id}', [UserController::class, 'show']);
+    Route::get('/users/{user_id}', [UserController::class, 'show']);
     Route::get('/users/{user_id}/favorites', [FavouritesController::class, 'getUserFavorites']);
     
     // Search routes
     Route::get('/search', [SearchController::class, 'index']);
-//KELLY NEEDS TO FIX! 
-    // Add to favorites
-    Route::post('/users/{user_id}/cars/{car_id}/favorite', [FavouritesController::class, 'addFavorite']);
-// remove favorites
-    Route::delete('/users/{user_id}/cars/{car_id}/unfavorite', [FavouritesController::class, 'removeFavorites']);
 });

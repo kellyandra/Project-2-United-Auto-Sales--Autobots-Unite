@@ -10,26 +10,26 @@ const errorMessage = ref ('');
 
 //ADD A NEW CAR
 const AddNewCar = () => {
-    const formData = new FormData(form);
+    let newCarForm = document.getElementById('NewCarForm');
+    let form_data = new FormData(newCarForm);
 
-    fetch("/api/cars", {
+    fetch("/api/v1/cars", {
         method: "POST",
-        body: formData,
+        body: form_data,
         headers: {
             'Accept': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
     })
     .then(response => {
         if (!response.ok) {
-            return response.json().then(data => {
-                throw new Error(data.message || "An error occurred while adding the new car");
-            });
-        }
+                return response.text().then(text => { throw new Error(text) });
+            }
         return response.json(); 
     })
     .then(data => {
-        formRef.value.reset(); // Reset the form
-        router.push('/cars');
+        newCarForm.reset(); // Reset the form
+        router.push('/explore');
     })
     .catch(error => {
         errorMessage.value = error.message; // Update the error message
@@ -68,8 +68,8 @@ const AddNewCar = () => {
         </div>
 
         <div class="col-md-6 mb-3">
-            <label for="cartype" class="form-label fw-bold">Car Type</label>
-            <select  name="cartype" id="cartype" class="form-select">
+            <label for="car_type" class="form-label fw-bold">Car Type</label>
+            <select  name="car_type" id="car_type" class="form-select">
                 <option value="Suv">SUV</option>
                 <option value="Pickup Truck">Pickup Truck</option>  
                 <option value="Station Wagon">Station Wagon</option>  
